@@ -9,6 +9,7 @@
 :root{
     --main-color:#53271f;
     --alt-color:#f1d9d5;
+    --book-bg:rgba(230, 178, 171, 0.712);
 }
 
 body{
@@ -22,6 +23,11 @@ body{
     width: 100%;
     height: 100%;
     display: flex;
+}
+
+button:hover, .footer-entrance a:hover{
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 /* Sidebar Styles */
@@ -57,23 +63,115 @@ body{
     background-color: var(--alt-color);
     border-radius: 7px;
     border-style: none;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 600;
-}
-
-.nav-btn:hover{
-    opacity: 0.7;
-    cursor: pointer;
+    min-width: 120px;
 }
 
 /* Main Styles */
 
-.main-container{
+
+main{
     width: 81%;
     height: 100%;
     background-image: url(./assets/pxlart-library.png);
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+.library-container{
+    width: 100%;
+    height: 92%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3%;
+    overflow-y: scroll;
+    scrollbar-width: none;    
+}
+
+.book-card{
+    width: 220px;
+    height: 400px;
+    min-height: 300px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    gap: 2%;
+    background-color: var(--book-bg);
+}
+
+.book-img{
+    width: 90%;
+    height: 90%;
+    border-radius: 12px;
+    background-image: url(./assets/favicon_io/android-chrome-192x192.png);
+    background-position: center;
+}
+
+.book-info{
+    font-size: 0.9rem;
+    color: var(--main-color);
+    background-color: var(--alt-color);
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.book-title{
+    font-style: italic;
+    font-weight: 600;
+}
+
+.book-actions{
+    display: flex;
+    gap: 10%;
+    padding: 5%;
+}
+
+.book-btn{
+    padding: 4px 10px;
+    border-style: none;
+    border-radius: 12px;
+    width: 80%;
+    font-weight: 600;
+    color: var(--alt-color);
+}
+
+.delete-book{
+    background-color: #ad0d0d;
+}
+
+.toggle-state{
+    background-color: #057a9e;
+}
+
+footer{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2%;
+    gap: 3%;
+}
+
+.footer-entrance, .footer-entrance a{
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--alt-color);
+}
+
+.footer-entrance a{
+    text-decoration: none;
+    text-shadow: 2px 3px var(--main-color);
 }
 
 /* RESPONSIVE DESIGN */
@@ -84,16 +182,16 @@ body{
 
     .sidebar-container{
         width: 100%;
-        height: 15%;
+        height: 20%;
     }
 
     .sidebar-nav{
         flex-direction: row;
-        gap: 10%;
+        gap: 3%;
     }
 
-    .main-container{
+    main{
         width: 100%;
-        height: 85%;
+        height: 80%;
     }
 }
