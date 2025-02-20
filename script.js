@@ -2,7 +2,9 @@
 
 // DOM Variables
 const libraryContainer = document.querySelector(".library-container");
+const addNewBookBtn = document.querySelector("#new-book-btn");
 const showLibraryBtn = document.querySelector("#show-books-btn");
+const toggleStateBtnList = document.querySelectorAll(".toggle-state");
 
 // Book's Array
 const bookStack = [];
@@ -28,6 +30,59 @@ function clean() {
         libraryContainer.innerHTML = '';
     }
 };
+
+// Add New Book
+addNewBookBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    clean();
+    let bookFormContainer = document.createElement("div");
+    bookFormContainer.classList.add("book-form-container");
+
+    bookFormContainer.innerHTML = `
+    <form class="book-form" action="" method="post">
+        <label for="fr-book-title">Title</label>
+        <input type="text" name="book-title" id="fr-book-title" required>
+        <label for="fr-book-author">Author</label>
+        <input type="text" name="book-author" id="fr-book-author" required>
+        <label for="fr-book-year">Publication Date</label>
+        <input type="number" name="book-year" id="fr-book-year" required>
+        <label for="fr-book-pages">Number of Pages</label>
+        <input type="number" name="book-pages" id="fr-book-pages" required>
+        
+        <fieldset>
+            <legend>Have you read the book?</legend>
+            <div>
+                <input type="radio" id="book-is-read" name="book-isRead" value="true" checked />
+                <label for="book-is-read">True</label>
+            </div>
+            <div>
+                <input type="radio" id="book-not-read" name="book-isRead" value="false" />
+                <label for="book-not-read">False</label>
+            </div>
+        </fieldset>
+
+        <button class="form-btn" type="submit">Add Book</button>
+    </form>
+    `;
+
+    libraryContainer.appendChild(bookFormContainer);
+
+    const bookForm = bookFormContainer.querySelector(".book-form");
+    bookForm.addEventListener("submit", (e) => {
+        e.preventDefault(); 
+
+        const title = document.getElementById("fr-book-title").value;
+        const author = document.getElementById("fr-book-author").value;
+        const year = document.getElementById("fr-book-year").value;
+        const pages = document.getElementById("fr-book-pages").value;
+        const isRead = document.querySelector('input[name="book-isRead"]:checked').value === "true";
+
+        addBook(title, author, year, pages, isRead);
+
+        clean();
+        showLibraryBtn.click(); 
+    });
+});
 
 // Show Library
 showLibraryBtn.addEventListener("click", (event) => {
@@ -90,6 +145,20 @@ showLibraryBtn.addEventListener("click", (event) => {
         bookCard.appendChild(bookActions);
 
         libraryContainer.appendChild(bookCard);
+
+         toggleButton.addEventListener("click", () => {
+            book.isRead = !book.isRead; // Cambia el estado de lectura
+            bookState.textContent = book.isRead ? "Read" : "Not read"; // Actualiza el texto
+        });
+
+        deleteButton.addEventListener("click", () => {
+            const index = bookStack.indexOf(book); // Encuentra el índice del libro
+            if (index > -1) {
+                bookStack.splice(index, 1); // Elimina el libro del array
+                clean(); // Limpia la vista
+                showLibraryBtn.click(); // Vuelve a mostrar la biblioteca
+            }
+        });
     }
 });
 
